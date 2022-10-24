@@ -42,8 +42,8 @@ class Calculator extends JFrame implements ActionListener{
 		
 		JPanel p1 = new JPanel(new GridLayout(1,1));
 		JButton bb = new JButton("<-");
-		JButton b10 = new JButton("");
-		JButton b11 = new JButton("");
+		JButton b10 = new JButton("sqr");
+		JButton b11 = new JButton("1/x");
 		JButton b12 = new JButton("");
 		bb.setFont(f);
 		b10.setFont(f);
@@ -134,6 +134,9 @@ class Calculator extends JFrame implements ActionListener{
 		bequal.addActionListener(this);
 		bC.addActionListener(this);
 		bb.addActionListener(this);
+		b10.addActionListener(this);
+		b11.addActionListener(this);
+		b12.addActionListener(this);
 		
 		setTitle("계산기 실습");
 		setSize(300, 300);
@@ -148,15 +151,26 @@ class Calculator extends JFrame implements ActionListener{
 		String oldText = jtf.getText();
 		
 		switch(s) {
+		case "1/x":
+			secondNumber = Integer.parseInt(jtf.getText());
+			if(secondNumber == 0) return;
+			res2 = 1.0 / secondNumber;
+			jtf.setText(String.valueOf(res2));
+			break;
+		case "sqr":
+			secondNumber = Integer.parseInt(jtf.getText());
+			if(secondNumber == 0) return;
+			res2 = Math.sqrt(secondNumber);
+			jtf.setText(String.valueOf(res2));
+			break;
 		case "<-":
 			// String  	.length() : 글자 개수
 			// 			   	.substring(n, m) : 일부글자 추출
-			// 조건 0이면 지우면 안됨
-			// 한자리 남았을때 지우면 0으로 변경
-			if(!(oldText.equals("0")))
-				jtf.setText(oldText.substring(0, oldText.length()-1));
+			// 조건 0이면 지우면 안됨, 한자리 남았을때 지우면 0으로 변경
 			if(oldText.length() == 1)
 				jtf.setText("0");
+			else
+				jtf.setText(oldText.substring(0, oldText.length()-1));
 			break;
 		case "=":
 			secondNumber = Integer.parseInt(jtf.getText());
